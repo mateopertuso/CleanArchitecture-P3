@@ -1,4 +1,4 @@
-Proyecto desarrollado como parte de la materia **Programación 3** de la **Universidad ORT Uruguay**.
+Proyecto desarrollado como parte de la materia **Programación 3** de la **Universidad ORT - Uruguay**.
 
 El objetivo de este proyecto es aplicar conceptos de desarrollo de software orientado a buenas prácticas, incluyendo:
 
@@ -15,7 +15,7 @@ Este repositorio tiene fines académicos y de aprendizaje.
 
 ---------------------------------------------------------------------------------------------------
 
-Project developed as part of the **Programming 3** course at **ORT University Uruguay**.
+Project developed as part of the **Programming 3** course at **ORT University - Uruguay**.
 
 The main goal of this project is to apply software engineering best practices, including:
 
