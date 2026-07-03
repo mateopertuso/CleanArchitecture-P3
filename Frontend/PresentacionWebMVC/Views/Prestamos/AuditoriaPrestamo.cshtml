@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PresentacionWebMVC.Models.DTOs.AuditoriaPrestamoDTO>
+
+<h2>Auditoría del Préstamo #@ViewBag.PrestamoId</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@if (Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@a.Usuario</td>
+                    <td>@a.Accion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="DetallePrestamo"
+       asp-route-id="@ViewBag.PrestamoId"
+       class="btn btn-info">
+        Ver detalles del préstamo
+    </a>
+}
+else
+{
+    <div class="alert alert-info">
+        No hay auditorías para este préstamo.
+    </div>
+}
+
+<a asp-action="AuditoriasPrestamos"
+   class="btn btn-secondary mt-2">
+    Volver
+</a>

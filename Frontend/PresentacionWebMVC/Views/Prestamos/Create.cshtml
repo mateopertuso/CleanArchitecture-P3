@@ -1,0 +1,189 @@
+﻿@model PresentacionWebMVC.Models.CreatePrestamoViewModel
+
+<h1>Crear Préstamo</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<form asp-action="Create"
+      method="post">
+
+    <div class="mb-3">
+        <label class="form-label">
+            Socio
+        </label>
+
+        <select asp-for="Prestamo.UsuarioId"
+                asp-items="Model.Usuarios"
+                class="form-control">
+
+            <option value="">
+                Seleccione un socio
+            </option>
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Telescopio
+        </label>
+
+        <select asp-for="Prestamo.TelescopioId"
+                asp-items="Model.Telescopios"
+                class="form-control"
+                id="telescopioSelect"
+                onchange="verificarDisponibilidad('telescopioSelect', 'telescopioEstado')">
+
+            <option value="">
+                Seleccione un telescopio
+            </option>
+
+        </select>
+
+        <small id="telescopioEstado"
+               class="text-danger">
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Montura
+        </label>
+
+        <select asp-for="Prestamo.MonturaId"
+                asp-items="Model.Monturas"
+                class="form-control"
+                id="monturaSelect"
+                onchange="verificarDisponibilidad('monturaSelect', 'monturaEstado')">
+
+            <option value="">
+                Seleccione una montura
+            </option>
+
+        </select>
+
+        <small id="monturaEstado"
+               class="text-danger">
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Cámara
+        </label>
+
+        <select asp-for="Prestamo.CamaraId"
+                asp-items="Model.Camaras"
+                class="form-control"
+                id="camaraSelect"
+                onchange="verificarDisponibilidad('camaraSelect', 'camaraEstado')">
+
+            <option value="">
+                Sin cámara
+            </option>
+
+        </select>
+
+        <small id="camaraEstado"
+               class="text-danger">
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Ocular
+        </label>
+
+        <select asp-for="Prestamo.OcularId"
+                asp-items="Model.Oculares"
+                class="form-control"
+                id="ocularSelect"
+                onchange="verificarDisponibilidad('ocularSelect', 'ocularEstado')">
+
+            <option value="">
+                Sin ocular
+            </option>
+
+        </select>
+
+        <small id="ocularEstado"
+               class="text-danger">
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Fecha Fin
+        </label>
+
+        <input asp-for="Prestamo.FechaFin"
+               type="date"
+               class="form-control" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Crear préstamo
+    </button>
+
+    @section Scripts {
+
+        <script>
+
+                async function verificarDisponibilidad(selectId, mensajeId)
+                {
+                    const select = document.getElementById(selectId);
+
+                    const mensaje = document.getElementById(mensajeId);
+
+                    const equipoId = select.value;
+
+                    if (!equipoId)
+                    {
+                        mensaje.innerText = "";
+                        return;
+                    }
+
+                    try
+                    {
+                        const respuesta = await fetch(`/Prestamos/VerificarDisponibilidad?equipoId=${equipoId}`);
+
+                        if (!respuesta.ok)
+                        {
+                            mensaje.innerText = "Error verificando disponibilidad";
+                            return;
+                        }
+
+                        const disponible = await respuesta.json();
+
+                        if (disponible)
+                        {
+                            mensaje.innerText = "Equipo disponible";
+
+                            mensaje.className = "text-success";
+                        }
+                        else
+                        {
+                            mensaje.innerText = "Sin disponibilidad";
+
+                            mensaje.className = "text-danger";
+                        }
+                    }
+                    catch
+                    {
+                        mensaje.innerText = "Error verificando disponibilidad";
+
+                        mensaje.className = "text-danger";
+                    }
+                }
+
+        </script>
+
+    }
+
+</form>

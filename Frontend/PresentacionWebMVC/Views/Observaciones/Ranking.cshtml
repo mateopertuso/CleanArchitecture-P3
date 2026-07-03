@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PresentacionWebMVC.Models.DTOs.RankingObjetoCelesteDTO>
+
+<h2>Ranking de Objetos Celestes</h2>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Cantidad de observaciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Tipo</td>
+                <td>@item.CantidadObservaciones</td>
+            </tr>
+        }
+    </tbody>
+</table>

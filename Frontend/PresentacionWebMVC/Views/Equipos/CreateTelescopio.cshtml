@@ -1,0 +1,59 @@
+﻿@model PresentacionWebMVC.Models.DTOs.AltaTelescopioDTO
+
+<h1>Alta Telescopio</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<form asp-action="CreateTelescopio" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Marca</label>
+        <input asp-for="Marca" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Modelo</label>
+        <input asp-for="Modelo" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cantidad Disponible</label>
+        <input asp-for="CantidadDisponible"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Apertura Mm</label>
+        <input asp-for="AperturaMm"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Relación Focal</label>
+        <input asp-for="RelacionFocal"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Distancia Focal Mm</label>
+        <input asp-for="DistanciaFocalMm"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Peso Kg</label>
+        <input asp-for="PesoKg"
+               class="form-control" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Crear
+    </button>
+
+</form>

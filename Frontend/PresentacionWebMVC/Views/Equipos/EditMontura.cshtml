@@ -1,0 +1,87 @@
+﻿@using LogicaNegocio.Enums
+@model PresentacionWebMVC.Models.DTOs.MonturaDTO
+
+<h1>Editar Montura</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<form asp-action="EditMontura"
+      method="post">
+
+    <input type="hidden"
+           asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">
+            Marca
+        </label>
+
+        <input asp-for="Marca"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Modelo
+        </label>
+
+        <input asp-for="Modelo"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Cantidad Disponible
+        </label>
+
+        <input asp-for="CantidadDisponible"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Tipo Montura
+        </label>
+
+        <select asp-for="TipoMontura"
+                class="form-control">
+
+            @foreach (var tipo in Enum.GetValues<TipoMontura>())
+            {
+                <option value="@((int)tipo)">
+                    @tipo
+                </option>
+            }
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Carga Máxima Kg
+        </label>
+
+        <input asp-for="CargaMaximaKg"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Es GoTo
+        </label>
+
+        <input asp-for="EsGoTo"
+               class="form-check-input" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-warning">
+        Guardar cambios
+    </button>
+
+</form>

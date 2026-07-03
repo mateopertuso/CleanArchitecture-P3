@@ -1,0 +1,61 @@
+﻿@model PresentacionWebMVC.Models.DTOs.EquipoDTO
+
+<h1>Eliminar Equipo</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<h3>
+    ¿Seguro que desea eliminar este equipo?
+</h3>
+
+<hr />
+
+<dl class="row">
+
+    <dt class="col-sm-2">
+        Marca
+    </dt>
+
+    <dd class="col-sm-10">
+        @Model.Marca
+    </dd>
+
+    <dt class="col-sm-2">
+        Modelo
+    </dt>
+
+    <dd class="col-sm-10">
+        @Model.Modelo
+    </dd>
+
+    <dt class="col-sm-2">
+        Tipo
+    </dt>
+
+    <dd class="col-sm-10">
+        @Model.TipoEquipo
+    </dd>
+
+</dl>
+
+<form asp-action="Delete">
+
+    <input type="hidden"
+           asp-for="Id" />
+
+    <button type="submit"
+            class="btn btn-danger">
+        Eliminar
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>

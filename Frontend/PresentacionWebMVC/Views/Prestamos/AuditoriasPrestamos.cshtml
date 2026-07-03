@@ -1,0 +1,48 @@
+﻿@model AuditoriasPrestamosViewModel
+
+<h2>Auditoría de Préstamos</h2>
+
+<form method="get">
+    <label>Coordinador</label>
+
+    <select asp-for="CoordinadorId"
+            asp-items="Model.Coordinadores">
+        <option value="">Seleccione...</option>
+    </select>
+
+    <button type="submit">
+        Buscar
+    </button>
+</form>
+
+@if (Model.Prestamos.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Estado</th>
+                <th>Fecha Inicio</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var p in Model.Prestamos)
+            {
+                <tr>
+                    <td>@p.Usuario</td>
+                    <td>@p.Estado</td>
+                    <td>@p.FechaInicio</td>
+
+                    <td>
+                        <a asp-action="AuditoriaPrestamo"
+                           asp-route-id="@p.Id">
+                            Ver Auditoría
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

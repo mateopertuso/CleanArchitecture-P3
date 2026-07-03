@@ -1,0 +1,133 @@
+﻿@model PresentacionWebMVC.Models.CreatePrestamoViewModel
+
+<h1>Devolver Préstamo</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+
+<div class="mb-3">
+
+    <label class="form-label">
+        Socio
+    </label>
+
+    <select id="usuarioSelect"
+            class="form-select">
+
+        <option value="">
+            Seleccione un socio
+        </option>
+
+        @foreach (var usuario in Model.Usuarios)
+        {
+            <option value="@usuario.Value">
+                @usuario.Text
+            </option>
+        }
+
+    </select>
+
+</div>
+<div id="prestamosContainer">
+</div>
+
+@section Scripts {
+
+    <script>
+
+        document.getElementById("usuarioSelect").addEventListener("change", async function () {
+                    const usuarioId = this.value;
+
+                    const container = document.getElementById("prestamosContainer");
+
+                    if (!usuarioId) {
+                        container.innerHTML = "";
+                        return;
+                    }
+
+                    const respuesta = await fetch(`/Prestamos/ObtenerPrestamosUsuario?usuarioId=${usuarioId}`);
+
+                    const prestamos = await respuesta.json();
+
+                    if (prestamos.length === 0) {
+                        container.innerHTML = "<p>No hay préstamos activos</p>";
+                        return;
+                    }
+
+                    let html = "";
+
+                    prestamos.forEach(p => {
+                        html += `
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+
+                                    <h5>
+                                        Préstamo #${p.id}
+                                    </h5>
+
+                                    <p>
+                                        <strong>Telescopio:</strong>
+                                        ${p.telescopio}
+                                    </p>
+
+                                    <p>
+                                        <strong>Montura:</strong>
+                                        ${p.montura}
+                                    </p>
+                                    ${p.camara
+                                      ? `
+                                            <p>
+                                                <strong>Cámara:</strong>
+                                                ${p.camara}
+                                            </p>
+                                        `
+                                      : ""
+                                    }
+                                    ${p.ocular
+                                      ? `
+                                            <p>
+                                                <strong>Ocular:</strong>
+                                                ${p.ocular}
+                                            </p>
+                                        `
+                                      : ""
+                                    }
+
+                                    <p>
+                                        <strong>Estado:</strong>
+                                        ${p.estado}
+                                    </p>
+                                    <p>
+                                        <strong>Fecha fin:</strong>
+                                        ${new Date(p.fechaFin).toLocaleDateString()}
+                                    </p>
+
+                                    <form method="post"
+                                          action="/Prestamos/DevolverPrestamo">
+
+                                        <input type="hidden"
+                                               name="prestamoId"
+                                               value="${p.id}" />
+
+                                        <button class="btn btn-warning">
+                                            Devolver
+                                        </button>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    container.innerHTML = html;
+                });
+
+    </script>
+
+}

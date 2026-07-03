@@ -1,0 +1,201 @@
+﻿@model PresentacionWebMVC.Models.CreateObservacionViewModel
+
+<h1>Nueva Observación</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post">
+
+    <input type="hidden"
+           asp-for="Observacion.Indicador"
+           id="indicadorHidden" />
+
+    <input type="hidden"
+           asp-for="Observacion.Detalle"
+           id="detalleHidden" />
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Préstamo
+        </label>
+
+        <select asp-for="Observacion.PrestamoId"
+                asp-items="Model.Prestamos"
+                class="form-select">
+
+            <option value="">
+                Seleccione un préstamo
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Objeto celeste
+        </label>
+
+        <select asp-for="Observacion.ObjetoCelesteId"
+                asp-items="Model.ObjetosCelestes"
+                class="form-select">
+
+            <option value="">
+                Seleccione un objeto
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Fecha observación
+        </label>
+
+        <input asp-for="Observacion.Fecha"
+               type="date"
+               class="form-control" />
+
+    </div>
+
+    <button type="button"
+            id="btnEvaluar"
+            class="btn btn-primary">
+
+        Evaluar
+
+    </button>
+
+    <hr />
+
+    <div id="resultadoEvaluacion"
+         style="display:none;">
+
+        <h4>Resultado evaluación</h4>
+
+        <p>
+            <strong>Indicador:</strong>
+            <span id="indicador"></span>
+        </p>
+
+        <p>
+            <strong>Detalle:</strong>
+            <span id="detalle"></span>
+        </p>
+
+        <button type="submit"
+                class="btn btn-success">
+
+            Confirmar Observación
+
+        </button>
+
+    </div>
+
+</form>
+
+@section Scripts {
+
+    <script>
+
+        document
+            .getElementById("btnEvaluar")
+            .addEventListener("click", async () => {
+
+                const prestamoId =
+                    document.getElementById(
+                        "Observacion_PrestamoId"
+                    ).value;
+
+                const objetoCelesteId =
+                    document.getElementById(
+                        "Observacion_ObjetoCelesteId"
+                    ).value;
+
+                if (!prestamoId || !objetoCelesteId) {
+                    alert(
+                        "Debe seleccionar préstamo y objeto"
+                    );
+
+                    return;
+                }
+
+                const respuesta =
+                    await fetch(
+                        "/Observaciones/Evaluar",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                prestamoId:
+                                    parseInt(prestamoId),
+
+                                objetoCelesteId:
+                                    parseInt(objetoCelesteId)
+                            })
+                        }
+                    );
+
+                if (!respuesta.ok) {
+                    alert(
+                        "No fue posible evaluar"
+                    );
+
+                    return;
+                }
+
+                const data =
+                    await respuesta.json();
+
+                document
+                    .getElementById(
+                        "resultadoEvaluacion"
+                    )
+                    .style.display = "block";
+
+                document
+                    .getElementById(
+                        "indicador"
+                    )
+                    .innerText =
+                    data.indicador;
+
+                document
+                    .getElementById(
+                        "detalle"
+                    )
+                    .innerText =
+                    data.detalle;
+
+                document
+                    .getElementById(
+                        "indicadorHidden"
+                    )
+                    .value =
+                    data.indicador;
+
+                document
+                    .getElementById(
+                        "detalleHidden"
+                    )
+                    .value =
+                    data.detalle;
+            });
+
+    </script>
+
+}

@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido</h1>
+    <p >Inicia sesión para continuar</p> 
+    @if (Context.Session.GetString("rol") != null)
+    {
+        <p>Rol: @ViewBag.Rol</p>
+        <p> Usuario: @ViewBag.Username </p> 
+    }
+
+</div>

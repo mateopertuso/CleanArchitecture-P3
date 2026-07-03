@@ -1,0 +1,83 @@
+﻿@model PresentacionWebMVC.Models.SociosPorTelescopioViewModel
+
+<h1>
+    Socios por Telescopio
+</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Telescopio
+        </label>
+
+        <select asp-for="TelescopioId"
+                asp-items="Model.Telescopios"
+                class="form-select">
+
+            <option value="">
+                Seleccione un telescopio
+            </option>
+
+        </select>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+
+        Buscar
+
+    </button>
+
+</form>
+
+<hr />
+
+@if (Model.Socios.Any())
+{
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var s in Model.Socios)
+            {
+                <tr>
+
+                    <td>@s.Id</td>
+
+                    <td>@s.NombreCompleto</td>
+
+                    <td>@s.Email</td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No existen socios para el telescopio seleccionado.
+    </div>
+}

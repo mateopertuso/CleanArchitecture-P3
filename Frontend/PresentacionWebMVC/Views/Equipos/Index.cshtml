@@ -1,0 +1,84 @@
+﻿@model IEnumerable<PresentacionWebMVC.Models.DTOs.EquipoDTO>
+
+<h1>Equipos</h1>
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Nuevo Equipo
+    </a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Tipo</th>
+            <th>Disponibles</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var equipo in Model)
+        {
+            <tr>
+                <td>@equipo.Id</td>
+                <td>@equipo.Marca</td>
+                <td>@equipo.Modelo</td>
+                <td>@equipo.TipoEquipo</td>
+                <td>@equipo.CantidadDisponible</td>
+                <td>
+
+                    @if (equipo.TipoEquipo == "Telescopio")
+                    {
+                        <a asp-action="EditTelescopio"
+                           asp-route-id="@equipo.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+                    }
+
+                    @if (equipo.TipoEquipo == "Montura")
+                    {
+                        <a asp-action="EditMontura"
+                           asp-route-id="@equipo.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+                    }
+
+                    @if (equipo.TipoEquipo == "Camara")
+                    {
+                        <a asp-action="EditCamara"
+                           asp-route-id="@equipo.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+                    }
+
+                    @if (equipo.TipoEquipo == "Ocular")
+                    {
+                        <a asp-action="EditOcular"
+                           asp-route-id="@equipo.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+                    }
+
+                    <a asp-action="Delete"
+                       asp-route-id="@equipo.Id"
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

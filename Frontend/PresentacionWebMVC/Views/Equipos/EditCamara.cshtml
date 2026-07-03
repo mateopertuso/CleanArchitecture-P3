@@ -1,0 +1,81 @@
+﻿@using LogicaNegocio.Enums
+@model PresentacionWebMVC.Models.DTOs.CamaraDTO
+
+<h1>Editar Cámara</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+<form asp-action="EditCamara"
+      method="post">
+
+    <input type="hidden"
+           asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Marca</label>
+        <input asp-for="Marca"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Modelo</label>
+        <input asp-for="Modelo"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Cantidad Disponible
+        </label>
+
+        <input asp-for="CantidadDisponible"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Tipo Sensor
+        </label>
+
+        <select asp-for="TipoSensor"
+                class="form-control">
+
+            @foreach (var tipo in Enum.GetValues<TipoSensor>())
+            {
+                <option value="@((int)tipo)">
+                    @tipo
+                </option>
+            }
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Resolución
+        </label>
+
+        <input asp-for="Resolucion"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">
+            Tamaño Pixel Um
+        </label>
+
+        <input asp-for="TamanoPixelUm"
+               class="form-control" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-warning">
+        Guardar cambios
+    </button>
+
+</form>

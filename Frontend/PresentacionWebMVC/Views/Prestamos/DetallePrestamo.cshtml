@@ -1,0 +1,53 @@
+﻿@model PresentacionWebMVC.Models.DTOs.PrestamoDTO
+
+<h2>Detalle del Préstamo</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+else
+{
+    <dl class="row">
+
+        <dt class="col-sm-3">Usuario</dt>
+        <dd class="col-sm-9">@Model.Usuario</dd>
+
+        <dt class="col-sm-3">Estado</dt>
+        <dd class="col-sm-9">@Model.Estado</dd>
+
+        <dt class="col-sm-3">Fecha Inicio</dt>
+        <dd class="col-sm-9">@Model.FechaInicio</dd>
+
+        <dt class="col-sm-3">Fecha Fin</dt>
+        <dd class="col-sm-9">@Model.FechaFin</dd>
+
+        <dt class="col-sm-3">Telescopio</dt>
+        <dd class="col-sm-9">@Model.Telescopio</dd>
+
+        <dt class="col-sm-3">Montura</dt>
+        <dd class="col-sm-9">@Model.Montura</dd>
+
+        <dt class="col-sm-3">Cámara</dt>
+        <dd class="col-sm-9">
+            @(string.IsNullOrWhiteSpace(Model.Camara)
+                ? "N/A"
+                : Model.Camara)
+        </dd>
+
+        <dt class="col-sm-3">Ocular</dt>
+        <dd class="col-sm-9">
+            @(string.IsNullOrWhiteSpace(Model.Ocular)
+                ? "N/A"
+                : Model.Ocular)
+        </dd>
+
+    </dl>
+}
+
+<a asp-action="AuditoriasPrestamos"
+   class="btn btn-secondary">
+    Volver
+</a>
