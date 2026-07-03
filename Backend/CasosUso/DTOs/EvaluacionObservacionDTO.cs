@@ -1,0 +1,8 @@
+﻿namespace CasosUso.DTOs
+{
+    public class EvaluacionObservacionDTO
+    {
+        public string Indicador { get; set; }
+        public string? Detalle { get; set; }
+    }
+}

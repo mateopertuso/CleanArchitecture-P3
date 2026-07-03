@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CasosUso.DTOs
+{
+    public class AltaTelescopioDTO
+    {
+        public string Marca {  get; set; }
+        public string Modelo { get; set; }
+        public int CantidadDisponible { get; set; }
+        public int AperturaMm { get; set; }
+        public double RelacionFocal { get; set; }
+        public int DistanciaFocalMm { get; set; }
+        public double PesoKg { get; set; }
+    }
+}
